@@ -16,7 +16,76 @@ namespace ContactsApplication
             InitializeComponent();
 
         }
+         void displayInformationInDataGridView()
+        {
 
+            using (var db = new ContactsApplicationDb())
+            {
+                var dataSource = (from t in db.Cards.Include(i => i.Category)
+                                  orderby t.Firstname, t.Lastname
+                                  select new
+                                  {
+                                      t.ContactId,
+                                      t.Firstname,
+                                      t.Lastname,
+                                      t.Mobile,
+                                      t.Email,
+                                      Category = t.Category.CategoryDescription
+                                  }).ToList();
+
+                dataGridView2.DataSource = dataSource;
+                dataGridView2.Columns[0].Visible = false;
+
+            }
+               
+        }
+
+        void displayInformationInDataGridViewOrderEmail()
+        {
+
+            using (var db = new ContactsApplicationDb())
+            {
+                var dataSource = (from t in db.Cards.Include(i => i.Category)
+                                  orderby t.Email
+                                  select new
+                                  {
+                                      t.ContactId,
+                                      t.Firstname,
+                                      t.Lastname,
+                                      t.Mobile,
+                                      t.Email,
+                                      Category = t.Category.CategoryDescription
+                                  }).ToList();
+
+                dataGridView2.DataSource = dataSource;
+                dataGridView2.Columns[0].Visible = false;
+
+            }
+
+        }
+        void displayInformationInDataGridViewOrderCategory()
+        {
+
+            using (var db = new ContactsApplicationDb())
+            {
+                var dataSource = (from t in db.Cards.Include(i => i.Category)
+                                  orderby t.Category.CategoryDescription
+                                  select new
+                                  {
+                                      t.ContactId,
+                                      t.Firstname,
+                                      t.Lastname,
+                                      t.Mobile,
+                                      t.Email,
+                                      Category = t.Category.CategoryDescription
+                                  }).ToList();
+
+                dataGridView2.DataSource = dataSource;
+                dataGridView2.Columns[0].Visible = false;
+
+            }
+
+        }
         private void Form1_Load(object sender, EventArgs e)
         {
             // start a new connection to our database
@@ -78,7 +147,7 @@ namespace ContactsApplication
 
                     db.SaveChanges();
                 }
-                
+
 
                 // eg of updating a record in db with new values
                 //if(card != null)
@@ -91,7 +160,7 @@ namespace ContactsApplication
 
                 //    db.SaveChanges();
                 //} 
-                
+
                 // eg. of deleting a record from db
                 //if(card != null)
                 //{
@@ -99,23 +168,8 @@ namespace ContactsApplication
                 //    db.Remove(card);
                 //    db.SaveChanges();
                 //} 
-                
 
-                var dataSource = (from t in db.Cards.Include(i => i.Category)
-                            orderby t.Firstname, t.Lastname
-                            select new
-                            {
-                                t.ContactId,
-                                t.Firstname,
-                                t.Lastname,
-                                t.Mobile,
-                                t.Email,
-                                Category = t.Category.CategoryDescription
-                            }).ToList();
-
-                dataGridView2.DataSource = dataSource;
-                dataGridView2.Columns[0].Visible = false;
-
+                displayInformationInDataGridView();
             }
         }
 
@@ -125,7 +179,7 @@ namespace ContactsApplication
             Form newContact = new AddContact(newContactDummyGuid);
             newContact.ShowDialog();
 
-            // refresh grid
+            displayInformationInDataGridView();
 
         }
 
@@ -135,8 +189,32 @@ namespace ContactsApplication
             Form newContact = new AddContact(editContactGuid);
             newContact.ShowDialog();
 
-            // refresh grid
+            displayInformationInDataGridView();
         }
 
+        private void btnDelete_Click(object sender, EventArgs e)
+        {
+            var firstName = dataGridView2.CurrentRow.Cells[1].Value;
+            var lastName = dataGridView2.CurrentRow.Cells[2].Value;
+            var messageContent = $"You're about to delete the contact {firstName} {lastName}, this cannot be undone, do you wish to proceed?";
+
+            DialogResult dialogResult = MessageBox.Show(messageContent, "Delete Contact", MessageBoxButtons.YesNo);
+            if (dialogResult == DialogResult.Yes)
+            {
+                var deleteContactGuid = (Guid)dataGridView2.CurrentRow.Cells[0].Value;
+                using (var db = new ContactsApplicationDb())
+                {
+                    var cardToDelete = db.Cards.Find(deleteContactGuid);
+                    db.Remove(cardToDelete);
+                    db.SaveChanges();
+                    displayInformationInDataGridView();
+                }
+
+            }
+            else if (dialogResult == DialogResult.No)
+            {
+                displayInformationInDataGridView();
+            }
+        }
     }
 }
