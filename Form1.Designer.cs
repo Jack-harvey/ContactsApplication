@@ -36,6 +36,7 @@ namespace ContactsApplication
             this.lblNotification = new System.Windows.Forms.Label();
             this.lblSearch = new System.Windows.Forms.Label();
             this.btnAddNewContact = new System.Windows.Forms.Button();
+            this.btnEdit = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.bindingSource1)).BeginInit();
             this.SuspendLayout();
@@ -44,8 +45,10 @@ namespace ContactsApplication
             // 
             this.dataGridView2.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView2.Location = new System.Drawing.Point(12, 45);
+            this.dataGridView2.MultiSelect = false;
             this.dataGridView2.Name = "dataGridView2";
             this.dataGridView2.RowTemplate.Height = 25;
+            this.dataGridView2.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridView2.Size = new System.Drawing.Size(822, 328);
             this.dataGridView2.TabIndex = 4;
             // 
@@ -84,11 +87,22 @@ namespace ContactsApplication
             this.btnAddNewContact.UseVisualStyleBackColor = true;
             this.btnAddNewContact.Click += new System.EventHandler(this.btnAddNewContact_Click);
             // 
+            // btnEdit
+            // 
+            this.btnEdit.Location = new System.Drawing.Point(13, 420);
+            this.btnEdit.Name = "btnEdit";
+            this.btnEdit.Size = new System.Drawing.Size(111, 23);
+            this.btnEdit.TabIndex = 9;
+            this.btnEdit.Text = "Edit";
+            this.btnEdit.UseVisualStyleBackColor = true;
+            this.btnEdit.Click += new System.EventHandler(this.btnEdit_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(846, 509);
+            this.Controls.Add(this.btnEdit);
             this.Controls.Add(this.btnAddNewContact);
             this.Controls.Add(this.lblSearch);
             this.Controls.Add(this.lblNotification);
@@ -111,6 +125,7 @@ namespace ContactsApplication
         private System.Windows.Forms.Label lblNotification;
         private System.Windows.Forms.Label lblSearch;
         private System.Windows.Forms.Button btnAddNewContact;
+        private System.Windows.Forms.Button btnEdit;
     }
 }
 

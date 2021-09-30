@@ -159,10 +159,12 @@ namespace ContactsApplication
             // 
             // dateBirthday
             // 
+            this.dateBirthday.CustomFormat = " ";
             this.dateBirthday.Location = new System.Drawing.Point(90, 219);
             this.dateBirthday.Name = "dateBirthday";
             this.dateBirthday.Size = new System.Drawing.Size(200, 23);
             this.dateBirthday.TabIndex = 16;
+            this.dateBirthday.VisibleChanged += new System.EventHandler(this.dateBirthday_VisibleChanged);
             // 
             // lblAddCategory
             // 

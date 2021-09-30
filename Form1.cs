@@ -1,15 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
-using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.IO;
-using System.Globalization;
-using CsvHelper;
 using ContactsApplication.Models;
 using Microsoft.EntityFrameworkCore;
 
@@ -121,15 +114,29 @@ namespace ContactsApplication
                             }).ToList();
 
                 dataGridView2.DataSource = dataSource;
-                
+                dataGridView2.Columns[0].Visible = false;
 
             }
         }
 
         private void btnAddNewContact_Click(object sender, EventArgs e)
         {
-            Form newContact = new AddContact();
+            Guid newContactDummyGuid = Guid.Empty;
+            Form newContact = new AddContact(newContactDummyGuid);
             newContact.ShowDialog();
+
+            // refresh grid
+
         }
+
+        private void btnEdit_Click(object sender, EventArgs e)
+        {
+            var editContactGuid = (Guid)dataGridView2.CurrentRow.Cells[0].Value;
+            Form newContact = new AddContact(editContactGuid);
+            newContact.ShowDialog();
+
+            // refresh grid
+        }
+
     }
 }

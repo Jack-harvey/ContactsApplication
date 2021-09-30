@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ContactsApplication.Models
 {
@@ -40,7 +36,7 @@ namespace ContactsApplication.Models
         public string Email { get; set; }
 
         [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}")]
-        public DateTime Birthday { get; set; }
+        public DateTime? Birthday { get; set; }
 
         [StringLength(255)]
         public string Picture { get; set; }
