@@ -216,5 +216,42 @@ namespace ContactsApplication
                 displayInformationInDataGridView();
             }
         }
+
+        private void DataGridView2_CellContentDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            var selectedEntry = (Guid)dataGridView2.CurrentRow.Cells[0].Value;
+            Form ContactForm = new ContactForm(selectedEntry);
+            ContactForm.ShowDialog();
+        }
+
+        private void radbName_Click(object sender, EventArgs e)
+        {
+            displayInformationInDataGridView();
+        }
+
+        private void radbEmail_Click(object sender, EventArgs e)
+        {
+            displayInformationInDataGridViewOrderEmail();
+        }
+
+        private void radbCategory_Click(object sender, EventArgs e)
+        {
+            displayInformationInDataGridViewOrderCategory();
+        }
+
+        private void textBox1_TextChanged(object sender, EventArgs e)
+        {
+            //string searchForText = "whatever";
+
+            //DataGridViewRow rowFound = mainView.Rows.OfType<DataGridViewRow>()
+            //  .FirstOrDefault(row => row.Cells.OfType<DataGridViewCell>()
+            //      .Any(cell => ((dynamic)cell.Value).StringID.Contains(searchForText)));
+
+            //if (rowFound != null)
+            //{
+            //    mainView.Rows[rowFound.Index].Selected = true;
+            //    mainView.FirstDisplayedScrollingRowIndex = rowFound.Index;
+            //}
+        }
     }
 }

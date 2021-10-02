@@ -46,10 +46,12 @@ namespace ContactsApplication
             this.lblAddCategory = new System.Windows.Forms.Label();
             this.lblAddBirthday = new System.Windows.Forms.Label();
             this.openFilePicture = new System.Windows.Forms.OpenFileDialog();
-            this.txtbPictureUrl = new System.Windows.Forms.TextBox();
             this.lbCategory = new System.Windows.Forms.ListBox();
             this.btnSave = new System.Windows.Forms.Button();
             this.lblMessage = new System.Windows.Forms.Label();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.btnLoadPicture = new System.Windows.Forms.Button();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // txtbFirstName
@@ -119,7 +121,7 @@ namespace ContactsApplication
             // lblPicture
             // 
             this.lblPicture.AutoSize = true;
-            this.lblPicture.Location = new System.Drawing.Point(8, 160);
+            this.lblPicture.Location = new System.Drawing.Point(299, 26);
             this.lblPicture.Name = "lblPicture";
             this.lblPicture.Size = new System.Drawing.Size(44, 15);
             this.lblPicture.TabIndex = 11;
@@ -144,7 +146,7 @@ namespace ContactsApplication
             // lblNotes
             // 
             this.lblNotes.AutoSize = true;
-            this.lblNotes.Location = new System.Drawing.Point(8, 189);
+            this.lblNotes.Location = new System.Drawing.Point(8, 245);
             this.lblNotes.Name = "lblNotes";
             this.lblNotes.Size = new System.Drawing.Size(38, 15);
             this.lblNotes.TabIndex = 13;
@@ -152,24 +154,25 @@ namespace ContactsApplication
             // 
             // txtbNotes
             // 
-            this.txtbNotes.Location = new System.Drawing.Point(90, 189);
+            this.txtbNotes.Location = new System.Drawing.Point(12, 263);
+            this.txtbNotes.Multiline = true;
             this.txtbNotes.Name = "txtbNotes";
-            this.txtbNotes.Size = new System.Drawing.Size(100, 23);
-            this.txtbNotes.TabIndex = 12;
+            this.txtbNotes.Size = new System.Drawing.Size(331, 128);
+            this.txtbNotes.TabIndex = 10;
             // 
             // dateBirthday
             // 
             this.dateBirthday.CustomFormat = " ";
-            this.dateBirthday.Location = new System.Drawing.Point(90, 219);
+            this.dateBirthday.Location = new System.Drawing.Point(90, 160);
             this.dateBirthday.Name = "dateBirthday";
-            this.dateBirthday.Size = new System.Drawing.Size(200, 23);
-            this.dateBirthday.TabIndex = 16;
+            this.dateBirthday.Size = new System.Drawing.Size(185, 23);
+            this.dateBirthday.TabIndex = 11;
             this.dateBirthday.VisibleChanged += new System.EventHandler(this.dateBirthday_VisibleChanged);
             // 
             // lblAddCategory
             // 
             this.lblAddCategory.AutoSize = true;
-            this.lblAddCategory.Location = new System.Drawing.Point(8, 250);
+            this.lblAddCategory.Location = new System.Drawing.Point(8, 191);
             this.lblAddCategory.Name = "lblAddCategory";
             this.lblAddCategory.Size = new System.Drawing.Size(53, 15);
             this.lblAddCategory.TabIndex = 19;
@@ -178,7 +181,7 @@ namespace ContactsApplication
             // lblAddBirthday
             // 
             this.lblAddBirthday.AutoSize = true;
-            this.lblAddBirthday.Location = new System.Drawing.Point(8, 222);
+            this.lblAddBirthday.Location = new System.Drawing.Point(8, 163);
             this.lblAddBirthday.Name = "lblAddBirthday";
             this.lblAddBirthday.Size = new System.Drawing.Size(51, 15);
             this.lblAddBirthday.TabIndex = 18;
@@ -188,27 +191,20 @@ namespace ContactsApplication
             // 
             this.openFilePicture.FileName = "openFileDialog1";
             // 
-            // txtbPictureUrl
-            // 
-            this.txtbPictureUrl.Location = new System.Drawing.Point(90, 160);
-            this.txtbPictureUrl.Name = "txtbPictureUrl";
-            this.txtbPictureUrl.Size = new System.Drawing.Size(100, 23);
-            this.txtbPictureUrl.TabIndex = 20;
-            // 
             // lbCategory
             // 
             this.lbCategory.FormattingEnabled = true;
             this.lbCategory.ItemHeight = 15;
-            this.lbCategory.Location = new System.Drawing.Point(90, 250);
+            this.lbCategory.Location = new System.Drawing.Point(90, 191);
             this.lbCategory.Name = "lbCategory";
-            this.lbCategory.Size = new System.Drawing.Size(411, 34);
-            this.lbCategory.TabIndex = 21;
+            this.lbCategory.Size = new System.Drawing.Size(96, 19);
+            this.lbCategory.TabIndex = 12;
             // 
             // btnSave
             // 
-            this.btnSave.Location = new System.Drawing.Point(13, 298);
+            this.btnSave.Location = new System.Drawing.Point(411, 368);
             this.btnSave.Name = "btnSave";
-            this.btnSave.Size = new System.Drawing.Size(293, 23);
+            this.btnSave.Size = new System.Drawing.Size(91, 23);
             this.btnSave.TabIndex = 22;
             this.btnSave.Text = "Save";
             this.btnSave.UseVisualStyleBackColor = true;
@@ -217,20 +213,42 @@ namespace ContactsApplication
             // lblMessage
             // 
             this.lblMessage.AutoSize = true;
-            this.lblMessage.Location = new System.Drawing.Point(11, 280);
+            this.lblMessage.Location = new System.Drawing.Point(367, 266);
             this.lblMessage.Name = "lblMessage";
-            this.lblMessage.Size = new System.Drawing.Size(0, 15);
+            this.lblMessage.Size = new System.Drawing.Size(26, 15);
             this.lblMessage.TabIndex = 23;
+            this.lblMessage.Text = "test";
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Location = new System.Drawing.Point(299, 44);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(203, 203);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBox1.TabIndex = 24;
+            this.pictureBox1.TabStop = false;
+            this.pictureBox1.DoubleClick += new System.EventHandler(this.pictureBox1_DoubleClick);
+            // 
+            // btnLoadPicture
+            // 
+            this.btnLoadPicture.Location = new System.Drawing.Point(394, 18);
+            this.btnLoadPicture.Name = "btnLoadPicture";
+            this.btnLoadPicture.Size = new System.Drawing.Size(108, 23);
+            this.btnLoadPicture.TabIndex = 25;
+            this.btnLoadPicture.Text = "Load Picture";
+            this.btnLoadPicture.UseVisualStyleBackColor = true;
+            this.btnLoadPicture.Click += new System.EventHandler(this.btnLoadPicture_Click);
             // 
             // AddContact
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(578, 332);
+            this.ClientSize = new System.Drawing.Size(514, 403);
+            this.Controls.Add(this.btnLoadPicture);
+            this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.lblMessage);
             this.Controls.Add(this.btnSave);
             this.Controls.Add(this.lbCategory);
-            this.Controls.Add(this.txtbPictureUrl);
             this.Controls.Add(this.lblAddCategory);
             this.Controls.Add(this.lblAddBirthday);
             this.Controls.Add(this.dateBirthday);
@@ -250,6 +268,7 @@ namespace ContactsApplication
             this.Name = "AddContact";
             this.Text = "AddContact";
             this.Load += new System.EventHandler(this.AddContact_Load);
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -274,9 +293,10 @@ namespace ContactsApplication
         private System.Windows.Forms.Label lblAddCategory;
         private System.Windows.Forms.Label lblAddBirthday;
         private System.Windows.Forms.OpenFileDialog openFilePicture;
-        private System.Windows.Forms.TextBox txtbPictureUrl;
         private System.Windows.Forms.ListBox lbCategory;
         private System.Windows.Forms.Button btnSave;
         private System.Windows.Forms.Label lblMessage;
+        private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.Button btnLoadPicture;
     }
 }

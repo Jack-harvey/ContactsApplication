@@ -2,6 +2,8 @@
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Data;
+using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 
@@ -17,6 +19,23 @@ namespace ContactsApplication
             InitializeComponent();
             originalDatePickerFormat = dateBirthday.Format;
             editingGuid = EditingGuid;
+        }
+
+        void pictureUrlFileSave()
+        {
+            using (OpenFileDialog openFileDialog = new OpenFileDialog())
+            {
+                openFileDialog.InitialDirectory = "c:\\";
+                openFileDialog.Filter = "Image Files| *.jpg; *.jpeg; *.png; *.gif; *.tif; ...";
+                openFileDialog.FilterIndex = 2;
+                openFileDialog.RestoreDirectory = true;
+                if (openFileDialog.ShowDialog() == DialogResult.OK)
+                {
+                    var sourcePicName = openFileDialog.FileName;
+                    contactPicturePath = @"C:\Users\JackH\source\repos\ContactsApplication\ContactsApplication\ContactPictures\" + Path.GetFileName(sourcePicName);
+                    File.Copy(sourcePicName, contactPicturePath);
+                }
+            }
         }
 
         private void AddContact_Load(object sender, EventArgs e)
@@ -48,7 +67,7 @@ namespace ContactsApplication
                     txtbPhone.Text = editCard.Mobile;
                     txtbEmail.Text = editCard.Email;
                     txtbCompany.Text = editCard.Company;
-                    txtbPictureUrl.Text = editCard.Picture;
+                    pictureBox1.Image = Image.FromFile(editCard.Picture);
                     txtbNotes.Text = editCard.Notes;
 
                     if(editCard.Birthday.HasValue)
@@ -100,7 +119,7 @@ namespace ContactsApplication
                     editCard.Mobile = txtbPhone.Text;
                     editCard.Email = txtbEmail.Text;
                     editCard.Company = txtbCompany.Text;
-                    editCard.Picture = txtbPictureUrl.Text;
+                    editCard.Picture = contactPicturePath;
                     editCard.Notes = txtbNotes.Text;
                     editCard.Birthday = dateBirthday.Value;
                     editCard.CategoryId = selectedCategoryId;
@@ -123,7 +142,7 @@ namespace ContactsApplication
                         Mobile = txtbPhone.Text,
                         Email = txtbEmail.Text,
                         Company = txtbCompany.Text,
-                        Picture = txtbPictureUrl.Text,
+                        Picture = contactPicturePath,
                         Notes = txtbNotes.Text,
                         Birthday = bdayHasVal ? dateBirthday.Value : null,
                         CategoryId = selectedCategoryId
@@ -144,5 +163,16 @@ namespace ContactsApplication
         }
 
         public Guid editingGuid { get; set; }
+
+        private void pictureBox1_DoubleClick(object sender, EventArgs e)
+        {
+            pictureUrlFileSave();
+        }
+
+        private void btnLoadPicture_Click(object sender, EventArgs e)
+        {
+            pictureUrlFileSave();
+        }
+        public string contactPicturePath { get; set; }
     }
 }
