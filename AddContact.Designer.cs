@@ -121,7 +121,7 @@ namespace ContactsApplication
             // lblPicture
             // 
             this.lblPicture.AutoSize = true;
-            this.lblPicture.Location = new System.Drawing.Point(299, 26);
+            this.lblPicture.Location = new System.Drawing.Point(299, 9);
             this.lblPicture.Name = "lblPicture";
             this.lblPicture.Size = new System.Drawing.Size(44, 15);
             this.lblPicture.TabIndex = 11;
@@ -146,7 +146,7 @@ namespace ContactsApplication
             // lblNotes
             // 
             this.lblNotes.AutoSize = true;
-            this.lblNotes.Location = new System.Drawing.Point(8, 245);
+            this.lblNotes.Location = new System.Drawing.Point(8, 218);
             this.lblNotes.Name = "lblNotes";
             this.lblNotes.Size = new System.Drawing.Size(38, 15);
             this.lblNotes.TabIndex = 13;
@@ -154,7 +154,7 @@ namespace ContactsApplication
             // 
             // txtbNotes
             // 
-            this.txtbNotes.Location = new System.Drawing.Point(12, 263);
+            this.txtbNotes.Location = new System.Drawing.Point(12, 236);
             this.txtbNotes.Multiline = true;
             this.txtbNotes.Name = "txtbNotes";
             this.txtbNotes.Size = new System.Drawing.Size(331, 128);
@@ -213,7 +213,7 @@ namespace ContactsApplication
             // lblMessage
             // 
             this.lblMessage.AutoSize = true;
-            this.lblMessage.Location = new System.Drawing.Point(367, 266);
+            this.lblMessage.Location = new System.Drawing.Point(12, 379);
             this.lblMessage.Name = "lblMessage";
             this.lblMessage.Size = new System.Drawing.Size(26, 15);
             this.lblMessage.TabIndex = 23;
@@ -221,7 +221,7 @@ namespace ContactsApplication
             // 
             // pictureBox1
             // 
-            this.pictureBox1.Location = new System.Drawing.Point(299, 44);
+            this.pictureBox1.Location = new System.Drawing.Point(299, 27);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(203, 203);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -231,7 +231,7 @@ namespace ContactsApplication
             // 
             // btnLoadPicture
             // 
-            this.btnLoadPicture.Location = new System.Drawing.Point(394, 18);
+            this.btnLoadPicture.Location = new System.Drawing.Point(394, 235);
             this.btnLoadPicture.Name = "btnLoadPicture";
             this.btnLoadPicture.Size = new System.Drawing.Size(108, 23);
             this.btnLoadPicture.TabIndex = 25;

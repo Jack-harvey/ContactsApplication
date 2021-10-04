@@ -42,49 +42,20 @@ namespace ContactsApplication
 
         void displayInformationInDataGridViewOrderEmail()
         {
-
-            using (var db = new ContactsApplicationDb())
-            {
-                var dataSource = (from t in db.Cards.Include(i => i.Category)
-                                  orderby t.Email
-                                  select new
-                                  {
-                                      t.ContactId,
-                                      t.Firstname,
-                                      t.Lastname,
-                                      t.Mobile,
-                                      t.Email,
-                                      Category = t.Category.CategoryDescription
-                                  }).ToList();
-
-                dataGridView2.DataSource = dataSource;
-                dataGridView2.Columns[0].Visible = false;
-
-            }
-
+            var data = from t in GetData(textBox1.Text, false)
+                       orderby t.Email
+                       select t;
+            dataGridView2.DataSource = data;
+            dataGridView2.Columns[0].Visible = false;
         }
         void displayInformationInDataGridViewOrderCategory()
         {
 
-            using (var db = new ContactsApplicationDb())
-            {
-                var dataSource = (from t in db.Cards.Include(i => i.Category)
-                                  orderby t.Category.CategoryDescription
-                                  select new
-                                  {
-                                      t.ContactId,
-                                      t.Firstname,
-                                      t.Lastname,
-                                      t.Mobile,
-                                      t.Email,
-                                      Category = t.Category.CategoryDescription
-                                  }).ToList();
-
-                dataGridView2.DataSource = dataSource;
-                dataGridView2.Columns[0].Visible = false;
-
-            }
-
+            var data = from t in GetData(textBox1.Text, false)
+                       orderby t.Category
+                       select t;
+            dataGridView2.DataSource = data;
+            dataGridView2.Columns[0].Visible = false;
         }
         private void Form1_Load(object sender, EventArgs e)
         {
@@ -138,7 +109,7 @@ namespace ContactsApplication
                 var card = db.Cards.FirstOrDefault(f => f.Firstname == "jack");
 
                 // eg of adding a new record
-                if(card == null)
+                if (card == null)
                 {
                     //db.Add(new Card { Firstname = "jack", Lastname = "harvey", Mobile = "0123456789", CategoryId = 1 });
                     card = new Card { Firstname = "jack", Lastname = "harvey", Mobile = "0123456789", CategoryId = 1 };
@@ -217,41 +188,197 @@ namespace ContactsApplication
             }
         }
 
-        private void DataGridView2_CellContentDoubleClick(object sender, DataGridViewCellEventArgs e)
+        private void dataGridView2_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
             var selectedEntry = (Guid)dataGridView2.CurrentRow.Cells[0].Value;
             Form ContactForm = new ContactForm(selectedEntry);
             ContactForm.ShowDialog();
         }
-
-        private void radbName_Click(object sender, EventArgs e)
-        {
-            displayInformationInDataGridView();
-        }
-
-        private void radbEmail_Click(object sender, EventArgs e)
-        {
-            displayInformationInDataGridViewOrderEmail();
-        }
-
-        private void radbCategory_Click(object sender, EventArgs e)
-        {
-            displayInformationInDataGridViewOrderCategory();
-        }
-
         private void textBox1_TextChanged(object sender, EventArgs e)
         {
-            //string searchForText = "whatever";
 
-            //DataGridViewRow rowFound = mainView.Rows.OfType<DataGridViewRow>()
-            //  .FirstOrDefault(row => row.Cells.OfType<DataGridViewCell>()
-            //      .Any(cell => ((dynamic)cell.Value).StringID.Contains(searchForText)));
+
+            //using (var db = new ContactsApplicationDb())
+            //{
+            //    var dataSource = (from t in db.Cards.Include(i => i.Category)
+            //                      orderby t.Firstname, t.Lastname
+            //                      select new
+            //                      {
+            //                          t.ContactId,
+            //                          t.Firstname,
+            //                          t.Lastname,
+            //                          t.Mobile,
+            //                          t.Email,
+            //                          Category = t.Category.CategoryDescription
+            //                      }).ToList();
+
+            //    dataGridView2.DataSource = dataSource;
+            //    dataGridView2.Columns[0].Visible = false;
+            //var searchFor = textBox1.Text;
+
+            //using (var db = new ContactsApplicationDb())
+            //{
+            //    var dataSource = (from t in db.Cards.Include(i => i.Category)
+            //                      where t.Firstname.Contains(searchFor) ||
+            //                        t.Lastname.Contains(searchFor) ||
+            //                        t.Mobile.Contains(searchFor) ||
+            //                        t.Email.Contains(searchFor) ||
+            //                        t.Category.CategoryDescription.Contains(searchFor)
+            //                      orderby t.Firstname, t.Lastname
+
+            //                      select new
+            //                      {
+            //                          t.ContactId,
+            //                          t.Firstname,
+            //                          t.Lastname,
+            //                          t.Mobile,
+            //                          t.Email,
+            //                          Category = t.Category.CategoryDescription
+            //                      }).ToList();
+
+                
+
+
+
+            var data = GetData(textBox1.Text, false);
+
+            //}
+            dataGridView2.DataSource = data;
+            dataGridView2.Columns[0].Visible = false;
+
+            //for (int i = 1; i < dataGridView2.Columns.Count; i++)
+            //{
+            //    dataGridView2.Columns[i].SortMode = DataGridViewColumnSortMode.Automatic;
+            //}
+
+            //string searchForText = "jack";
+
+            //    DataGridViewRow rowFound = dataGridView2.Rows.OfType<DataGridViewRow>().FirstOrDefault(row => row.Cells.OfType<DataGridViewCell>().Any(cell => ((dynamic)cell.Value).StringID.Contains(searchForText)));
+            //    //DataGridViewRow rowFound = dataGridView2.Rows.OfType<DataGridViewRow>().FirstOrDefault(row => row.Cells.OfType<DataGridViewCell>().Select(
 
             //if (rowFound != null)
-            //{
-            //    mainView.Rows[rowFound.Index].Selected = true;
-            //    mainView.FirstDisplayedScrollingRowIndex = rowFound.Index;
+            //    {
+            //        dataGridView2.Rows[rowFound.Index].Selected = true;
+            //        dataGridView2.FirstDisplayedScrollingRowIndex = rowFound.Index;
+            //    }
             //}
+
+
+        }
+
+        private string sortDir = "A";
+
+        private void dataGridView2_ColumnHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            
+
+            var dataSource = GetData(textBox1.Text, true);
+
+            
+            
+            dataGridView2.DataSource = dataSource;
+            dataGridView2.Columns[0].Visible = false;
+        }
+
+        private List<CardSearchView> OrderData(IQueryable<CardSearchView> data, bool updateSortDir)
+        {
+            var col = dataGridView2.CurrentCell.OwningColumn;
+
+            if (col.Index == 1)
+            {
+                if (sortDir == "A")
+                {
+                    data = data.OrderBy(o => o.Firstname);//.ThenBy(o => o.Category);
+                }
+                else
+                {
+                    data = data.OrderByDescending(o => o.Firstname);
+                }
+            }
+
+            if (col.Index == 2)
+            {
+                if (sortDir == "A")
+                {
+                    data = data.OrderBy(o => o.Lastname);
+                }
+                else
+                {
+                    data = data.OrderByDescending(o => o.Lastname);
+                }
+            }
+
+            if (col.Index == 3)
+            {
+                if (sortDir == "A")
+                {
+                    data = data.OrderBy(o => o.Mobile);
+                }
+                else
+                {
+                    data = data.OrderByDescending(o => o.Mobile);
+                }
+            }
+
+            if (col.Index == 4)
+            {
+                if (sortDir == "A")
+                {
+                    data = data.OrderBy(o => o.Email);
+                }
+                else
+                {
+                    data = data.OrderByDescending(o => o.Email);
+                }
+            }
+
+            if (col.Index == 5)
+            {
+                if (sortDir == "A")
+                {
+                    data = data.OrderBy(o => o.Category);
+                }
+                else
+                {
+                    data = data.OrderByDescending(o => o.Category);
+                }
+            }
+
+            if (updateSortDir) 
+                sortDir = sortDir == "A" ? "B" : "A";
+
+
+            return data.ToList();
+        }
+
+        private List<CardSearchView> GetData(string searchFor, bool updateSorDir)
+        {
+            IQueryable<CardSearchView> data = null;
+
+            using (var db = new ContactsApplicationDb())
+            {
+                data = (from t in db.Cards.Include(i => i.Category)
+                                  where t.Firstname.Contains(searchFor) ||
+                                    t.Lastname.Contains(searchFor) ||
+                                    t.Mobile.Contains(searchFor) ||
+                                    t.Email.Contains(searchFor) ||
+                                    t.Category.CategoryDescription.Contains(searchFor)
+                                  //orderby t.Firstname, t.Lastname
+                                  
+                                  select new CardSearchView
+                                  {
+                                      ContactId = t.ContactId,
+                                      Firstname = t.Firstname,
+                                      Lastname = t.Lastname,
+                                      Mobile = t.Mobile,
+                                      Email = t.Email,
+                                      //FavouriteColour = "Blue",
+                                      Category = t.Category.CategoryDescription
+                                  });
+
+                return OrderData(data, updateSorDir);
+            }
+
         }
     }
 }
