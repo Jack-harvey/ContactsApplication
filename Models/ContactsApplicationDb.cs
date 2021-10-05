@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Configuration;
 
 namespace ContactsApplication.Models
 {
@@ -14,8 +15,13 @@ namespace ContactsApplication.Models
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\JackH\source\repos\ContactsApplication\Data\Contacts.mdf;Integrated Security=True;");
-            
+
+            string connection = ConfigurationManager.ConnectionStrings["databaseConnector"].ConnectionString;
+            optionsBuilder.UseSqlServer(connection);
+            //optionsBuilder.UseSqlServer(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\JackH\source\repos\ContactsApplication\Data\Contacts.mdf;Integrated Security=True;");
+
+
+
             //base.OnConfiguring(optionsBuilder);
         }
     }
